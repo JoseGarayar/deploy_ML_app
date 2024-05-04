@@ -15,7 +15,7 @@ To get the application running locally:
 
 1. **Clone the Repository**
    ```bash
-   git clone [repository-url]
+   git clone https://github.com/JoseGarayar/deploy_ML_app.git
    cd deploy_ML_app
 
 2. **Build the Docker Container**
