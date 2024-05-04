@@ -21,15 +21,13 @@
 			text-align: center;
 		}
 		.card{
-		margin-left:410px;
-		margin-top: 20px;
-		color: white;
+			color: white;
 		}
 		.container{
-		background:#edf2f7;
-		font-weight: bold;
-		padding-bottom:10px;
-		border-radius: 15px;
+			background:#edf2f7;
+			font-weight: bold;
+			padding-bottom:10px;
+			border-radius: 15px;
 		}
 	</style>
 
@@ -41,29 +39,33 @@
 
 <!--==========================================================================================-->
   <div class="container my-3 mt-3">
-      <h1 class="text-success">Segmentación de clientes<span class="text-success"></span></h1>
+      <h1 class="text-success py-4">Segmentación de clientes<span class="text-success"></span></h1>
 
 <!--      adding form-->
-      <form action="/predict" method="POST">
+      <form action="/predict" method="POST" onsubmit="return validateForm()">
           <div class="row">
               <div class="col-md-4">
-					<label for="Gender">Genero</label>
-					<input type="text" id="Gender" name="Gender" placeholder="Ingrese genero" class="form-control" required step="0">
+					<label for="gender">Género</label>
+					<select name="gender" id="gender" class="form-control">
+						<option value="" disabled selected>Ingrese género</option>
+						<option value="Male">Masculino</option>
+						<option value="Female">Femenino</option>
+					</select>
 				</div>
                <div class="col-md-4">
-					<label for="Age">Edad</label>
-					<input type="number" id="Age" name="Age" placeholder="Ingrese edad" class="form-control" required step="00">
+					<label for="age">Edad</label>
+					<input type="number" id="age" name="age" placeholder="Ingrese edad" class="form-control" min="0" required>
 				</div>
 				<div class="col-md-4">
-					<label for="annualIncome">Ingreso anual</label>
-					<input type="number" id="annualIncome" name="annualIncome" placeholder="Ingreso mensual" class="form-control" required step="0">
+					<label for="annualIncome">Ingreso anual (k$)</label>
+					<input type="number" id="annualIncome" name="annualIncome" placeholder="Ingreso mensual" class="form-control" min="0" max="200" required>
 				</div>
           </div>
 
           <div class="row mt-4">
 				<div class="col-md-4">
-					<label for="spendingScore">Score</label>
-					<input type="number" step="0.01" id="spendingScore" name="spendingScore" placeholder="Lluvia en mm" class="form-control" required>
+					<label for="spendingScore">Score (1-100)</label>
+					<input type="number" id="spendingScore" name="spendingScore" placeholder="Ingrese puntaje de gasto" class="form-control" min="0" max="100" required>
 				</div>
 			</div>
 
@@ -80,9 +82,9 @@
 
 
        {% if result %}
-		<div class="card bg-dark" style="width: 18rem;">
-		  <div class="card-body">
-			<h5 class="card-title">La recomendación es:</h5>
+		<div class="card bg-dark my-3">
+		  <div class="card-body text-center">
+			<h5 class="card-title">La recomendación es</h5>
 			<p class="card-text">{{ result }}</p>
 		  </div>
 		</div>
@@ -93,5 +95,15 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" 
   >
   </script>
+  <script>
+	function validateForm() {
+		var selectedGender = document.getElementById("gender").value;
+		if (selectedGender === "") {
+			alert("Por favor, seleccione un género.");
+			return false;
+		}
+		return true;
+	}
+	</script>
   </body>
 </html>
